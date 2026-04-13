@@ -1,0 +1,8 @@
+# Treat the build and dist folders as documentation/data, not code
+build/** linguist-vendored
+dist/** linguist-vendored
+samples/** linguist-vendored
+
+# Ensure .html and .toc files are ignored globally for stats
+*.html linguist-documentation
+*.toc linguist-documentation
