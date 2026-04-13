@@ -1,39 +1,73 @@
-# Read me before use: 
+# 🎯 TargetX: Precision Bacterial Drug Target Identification
 
-# install web drivers:
+**TargetX** is an automated bioinformatics pipeline designed to rapidly screen potential drug targets from an extensive bacterial dataset. TargetX uses a systemic "negative-to-positive" filtering strategy to filter thousands of protein sequences to a handful of candidates that are essential far the survival of pathogen.
 
-check your google chrome version with the following command:
+---
 
-google-chrome --version
+## 🧬 Step-wise Workflow
 
-if it is present then use the version number to install the driver. 
+TargetX doesn't just search; it eliminates. The pipeline moves through a rigorous multi-stage funnel:
 
-wget https://chromedriver.storage.googleapis.com/104.0.5112.79 {#YOUR VERSION NUMBER}/chromedriver_linux64.zip
-sudo cp chromedriver_linux64 /usr/local/bin
+1.  **Redundancy Reduction (CD-HIT):** Collapses duplicate or highly similar sequences (90% threshold) to minimize computational overhead.
+2.  **Host Safety Filter (Human Proteome):** A negative filter to remove proteins homologous to human sequences, preventing cross-reactivity.
+3.  **Essentiality Check (DEG):** A positive filter against the *Database of Essential Genes* to ensure the target is critical for bacterial survival.
+4.  **Virulence Assessment (VFDB):** Identifies proteins involved in pathogenesis and toxicity.
+5.  **Broad-Spectrum Check (ESKAPE):** Filters against the most notorious multi-drug resistant pathogens.
+6.  **Subcellular Localization (PsortB):** Pinpoints the protein's location to determine accessibility for drug molecules.
 
-if you don't have the google chrome then use this commands: 
+---
 
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-google-chrome --version
-wget https://chromedriver.storage.googleapis.com/104.0.5112.79/chromedriver_linux64.zip
-pwd
-sudo cp chromedriver_linux64 /usr/local/bin
+## 🚀 Performance Snapshot
+In recent benchmarks, TargetX processed:
+* **Input:** 10 *E. coli* Proteomes (~53,223 sequences).
+* **CD-HIT Execution:** Reduced to 11,619 clusters in **40 seconds**.
+* **Systemic BLASTing:** Rapidly cross-referenced against Human, DEG, and VFDB databases.
 
-# install softwares:
+---
 
-sudo apt-get install cd-hit
-sudo apt-get install ncbi-blast+
+## 🛠️ Installation
 
+TargetX requires a Linux environment with the following bioinformatics suites:
 
-#running of program:
+```bash
+# 1. System packages
+sudo apt-get update
+sudo apt-get install python3-tk
 
-We have already provided the different databses in the software it-self, If you wnat to use custom dtabase then just paste the custom databse in it's respective folder, be sure to not to change the name!!!
+# 2. Clone the repository
+git clone https://github.com/cxbl-gbu/TargetX.git
+cd TargetX
 
-For trial we have provided few samples in the samples direcotry!
+# 3. Create and activate the environment
+conda create -n targetx python=3.10 -y
+conda activate targetx
 
-After all the installation run the program the program will be in the dist directory using 
+# 4. Install bioinformatics dependencies
+conda install bioconda::cd-hit
+conda install bioconda::blast==2.16.0
 
-./TargetX
+# 5. Install Python dependencies
+pip install selenium
 
+#6. Run the Tool
+./dist/TargetX
 
+````
+
+---
+
+## 👥 Credits & Authors
+TargetX was developed by CxBL (Computational and eXperimental Biomolecular Lab), Gujarat Biotechnology University (GBU).
+
+Meet Parmar – Lead Developer
+
+Soham Bhatt – Bioinformatics Logic & Testing
+
+Dhaval Patel – Supervisor & Principal Investigator
+
+**Affiliation:** Gujarat Biotechnology University (GBU), Gandhinagar, Gujarat, India.
+
+---
+
+## 📄 **License**
+This project is licensed under the MIT License.
